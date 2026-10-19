@@ -2,10 +2,6 @@
 
 Control the quality WordPress uses when it generates and saves images, with separate settings for JPEG and the WordPress image editor.
 
-**License:** [GNU General Public License v2.0 or later](https://www.gnu.org/licenses/gpl-2.0.html)
-
-> For GitHub. Plugin documentation source of truth: [`readme.txt`](readme.txt).
-
 ## Description
 
 When you upload an image, WordPress creates multiple resized copies (thumbnail, medium, large, and other sizes). WordPress compresses those files using a default quality of **82**. That favors smaller files, but it can cause visible compression artifacts. Higher values preserve detail but use more disk space and bandwidth.
@@ -59,6 +55,10 @@ No. Only new or re-saved generated images use the new settings.
 
 ## Changelog
 
+### 3.1.1
+
+- Settings copy and layout: file-type notes in section descriptions; WordPress defaults beside quality and priority inputs.
+
 ### 3.1.0
 
 - Renamed plugin to Sikorix Image Upload Manager (slug: sikorix-image-upload-manager).
@@ -73,6 +73,10 @@ No. Only new or re-saved generated images use the new settings.
 
 ## Upgrade Notice
 
+### 3.1.1
+
+Settings screen text and layout refinements.
+
 ### 3.1.0
 
 Renamed to Sikorix Image Upload Manager. Install as a new plugin slug; previous settings are not migrated.
@@ -80,3 +84,7 @@ Renamed to Sikorix Image Upload Manager. Install as a new plugin slug; previous 
 ### 3.0.0
 
 New settings screen for JPEG and editor quality. Review **Settings → Sikorix Image Upload Manager** after upgrading.
+
+## License
+
+[GNU General Public License v2.0 or later](https://www.gnu.org/licenses/gpl-2.0.html)
