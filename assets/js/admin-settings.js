@@ -61,7 +61,7 @@
 	}
 
 	function init() {
-		document.querySelectorAll( '.sikora-iq-control-row' ).forEach( bindSyncedRow );
+		document.querySelectorAll( '.sikorix-ium-control-row' ).forEach( bindSyncedRow );
 	}
 
 	if ( 'loading' === document.readyState ) {
