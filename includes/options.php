@@ -1,8 +1,8 @@
 <?php
 /**
- * Option names, defaults, and sanitization for Sikora Image Quality.
+ * Option names, defaults, and sanitization for Sikorix Image Upload Manager.
  *
- * @package SikoraImageQuality
+ * @package SikorixImageUploadManager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,40 +10,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Option key: JPEG quality (1–100). */
-const SIKORA_IQ_OPTION_JPEG_QUALITY = 'sikora_jpeg_quality';
+const SIKORIX_IUM_OPTION_JPEG_QUALITY = 'sikorix_jpeg_quality';
 
 /** Option key: JPEG filter priority. */
-const SIKORA_IQ_OPTION_JPEG_PRIORITY = 'sikora_jpeg_filter_priority';
+const SIKORIX_IUM_OPTION_JPEG_PRIORITY = 'sikorix_jpeg_filter_priority';
 
 /** Option key: WordPress image editor quality (1–100). */
-const SIKORA_IQ_OPTION_EDITOR_QUALITY = 'sikora_editor_quality';
+const SIKORIX_IUM_OPTION_EDITOR_QUALITY = 'sikorix_editor_quality';
 
 /** Option key: WordPress image editor filter priority. */
-const SIKORA_IQ_OPTION_EDITOR_PRIORITY = 'sikora_editor_filter_priority';
+const SIKORIX_IUM_OPTION_EDITOR_PRIORITY = 'sikorix_editor_filter_priority';
 
 /** WordPress core default JPEG/editor quality. */
-const SIKORA_IQ_WP_DEFAULT_QUALITY = 82;
+const SIKORIX_IUM_WP_DEFAULT_QUALITY = 82;
 
 /** WordPress default priority when add_filter() is called without a priority. */
-const SIKORA_IQ_WP_DEFAULT_FILTER_PRIORITY = 10;
+const SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY = 10;
 
 /** Plugin default filter priority for quality callbacks. */
-const SIKORA_IQ_DEFAULT_FILTER_PRIORITY = 99;
+const SIKORIX_IUM_DEFAULT_FILTER_PRIORITY = 99;
 
 /** Minimum quality value accepted in the admin UI. */
-const SIKORA_IQ_MIN_QUALITY = 1;
+const SIKORIX_IUM_MIN_QUALITY = 1;
 
 /** Maximum quality value accepted in the admin UI. */
-const SIKORA_IQ_MAX_QUALITY = 100;
+const SIKORIX_IUM_MAX_QUALITY = 100;
 
 /** Default quality for JPEG and editor controls when no value is saved yet. */
-const SIKORA_IQ_DEFAULT_QUALITY = 100;
+const SIKORIX_IUM_DEFAULT_QUALITY = 100;
 
 /** Minimum filter priority accepted in the admin UI. */
-const SIKORA_IQ_MIN_PRIORITY = 1;
+const SIKORIX_IUM_MIN_PRIORITY = 1;
 
 /** Maximum filter priority accepted in the admin UI. */
-const SIKORA_IQ_MAX_PRIORITY = 999;
+const SIKORIX_IUM_MAX_PRIORITY = 999;
 
 /**
  * Clamp an integer between minimum and maximum bounds.
@@ -53,7 +53,7 @@ const SIKORA_IQ_MAX_PRIORITY = 999;
  * @param int $maximum Upper bound.
  * @return int
  */
-function sikora_iq_clamp_int( $value, $minimum, $maximum ) {
+function sikorix_ium_clamp_int( $value, $minimum, $maximum ) {
 	$value = (int) $value;
 
 	if ( $value < $minimum ) {
@@ -72,8 +72,8 @@ function sikora_iq_clamp_int( $value, $minimum, $maximum ) {
  * @param mixed $value Submitted value.
  * @return int
  */
-function sikora_iq_sanitize_quality( $value ) {
-	return sikora_iq_clamp_int( absint( $value ), SIKORA_IQ_MIN_QUALITY, SIKORA_IQ_MAX_QUALITY );
+function sikorix_ium_sanitize_quality( $value ) {
+	return sikorix_ium_clamp_int( absint( $value ), SIKORIX_IUM_MIN_QUALITY, SIKORIX_IUM_MAX_QUALITY );
 }
 
 /**
@@ -82,8 +82,8 @@ function sikora_iq_sanitize_quality( $value ) {
  * @param mixed $value Submitted value.
  * @return int
  */
-function sikora_iq_sanitize_filter_priority( $value ) {
-	return sikora_iq_clamp_int( absint( $value ), SIKORA_IQ_MIN_PRIORITY, SIKORA_IQ_MAX_PRIORITY );
+function sikorix_ium_sanitize_filter_priority( $value ) {
+	return sikorix_ium_clamp_int( absint( $value ), SIKORIX_IUM_MIN_PRIORITY, SIKORIX_IUM_MAX_PRIORITY );
 }
 
 /**
@@ -91,11 +91,11 @@ function sikora_iq_sanitize_filter_priority( $value ) {
  *
  * @return int
  */
-function sikora_iq_get_jpeg_quality() {
-	return sikora_iq_clamp_int(
-		(int) get_option( SIKORA_IQ_OPTION_JPEG_QUALITY, SIKORA_IQ_DEFAULT_QUALITY ),
-		SIKORA_IQ_MIN_QUALITY,
-		SIKORA_IQ_MAX_QUALITY
+function sikorix_ium_get_jpeg_quality() {
+	return sikorix_ium_clamp_int(
+		(int) get_option( SIKORIX_IUM_OPTION_JPEG_QUALITY, SIKORIX_IUM_DEFAULT_QUALITY ),
+		SIKORIX_IUM_MIN_QUALITY,
+		SIKORIX_IUM_MAX_QUALITY
 	);
 }
 
@@ -104,11 +104,11 @@ function sikora_iq_get_jpeg_quality() {
  *
  * @return int
  */
-function sikora_iq_get_jpeg_filter_priority() {
-	return sikora_iq_clamp_int(
-		(int) get_option( SIKORA_IQ_OPTION_JPEG_PRIORITY, SIKORA_IQ_DEFAULT_FILTER_PRIORITY ),
-		SIKORA_IQ_MIN_PRIORITY,
-		SIKORA_IQ_MAX_PRIORITY
+function sikorix_ium_get_jpeg_filter_priority() {
+	return sikorix_ium_clamp_int(
+		(int) get_option( SIKORIX_IUM_OPTION_JPEG_PRIORITY, SIKORIX_IUM_DEFAULT_FILTER_PRIORITY ),
+		SIKORIX_IUM_MIN_PRIORITY,
+		SIKORIX_IUM_MAX_PRIORITY
 	);
 }
 
@@ -117,11 +117,11 @@ function sikora_iq_get_jpeg_filter_priority() {
  *
  * @return int
  */
-function sikora_iq_get_editor_quality() {
-	return sikora_iq_clamp_int(
-		(int) get_option( SIKORA_IQ_OPTION_EDITOR_QUALITY, SIKORA_IQ_DEFAULT_QUALITY ),
-		SIKORA_IQ_MIN_QUALITY,
-		SIKORA_IQ_MAX_QUALITY
+function sikorix_ium_get_editor_quality() {
+	return sikorix_ium_clamp_int(
+		(int) get_option( SIKORIX_IUM_OPTION_EDITOR_QUALITY, SIKORIX_IUM_DEFAULT_QUALITY ),
+		SIKORIX_IUM_MIN_QUALITY,
+		SIKORIX_IUM_MAX_QUALITY
 	);
 }
 
@@ -130,10 +130,10 @@ function sikora_iq_get_editor_quality() {
  *
  * @return int
  */
-function sikora_iq_get_editor_filter_priority() {
-	return sikora_iq_clamp_int(
-		(int) get_option( SIKORA_IQ_OPTION_EDITOR_PRIORITY, SIKORA_IQ_DEFAULT_FILTER_PRIORITY ),
-		SIKORA_IQ_MIN_PRIORITY,
-		SIKORA_IQ_MAX_PRIORITY
+function sikorix_ium_get_editor_filter_priority() {
+	return sikorix_ium_clamp_int(
+		(int) get_option( SIKORIX_IUM_OPTION_EDITOR_PRIORITY, SIKORIX_IUM_DEFAULT_FILTER_PRIORITY ),
+		SIKORIX_IUM_MIN_PRIORITY,
+		SIKORIX_IUM_MAX_PRIORITY
 	);
 }

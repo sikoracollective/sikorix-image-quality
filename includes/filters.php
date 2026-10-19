@@ -2,7 +2,7 @@
 /**
  * WordPress image quality filters.
  *
- * @package SikoraImageQuality
+ * @package SikorixImageUploadManager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,22 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register quality filters using saved priority values.
  */
-function sikora_iq_register_quality_filters() {
+function sikorix_ium_register_quality_filters() {
 	add_filter(
 		'jpeg_quality',
-		'sikora_iq_filter_jpeg_quality',
-		sikora_iq_get_jpeg_filter_priority(),
+		'sikorix_ium_filter_jpeg_quality',
+		sikorix_ium_get_jpeg_filter_priority(),
 		2
 	);
 
 	add_filter(
 		'wp_editor_set_quality',
-		'sikora_iq_filter_editor_quality',
-		sikora_iq_get_editor_filter_priority(),
+		'sikorix_ium_filter_editor_quality',
+		sikorix_ium_get_editor_filter_priority(),
 		2
 	);
 }
-add_action( 'plugins_loaded', 'sikora_iq_register_quality_filters' );
+add_action( 'plugins_loaded', 'sikorix_ium_register_quality_filters' );
 
 /**
  * Apply configured JPEG quality.
@@ -36,10 +36,10 @@ add_action( 'plugins_loaded', 'sikora_iq_register_quality_filters' );
  * @param string $context Context such as image_resize or edit_image.
  * @return int
  */
-function sikora_iq_filter_jpeg_quality( $quality, $context ) {
+function sikorix_ium_filter_jpeg_quality( $quality, $context ) {
 	unset( $context );
 
-	return sikora_iq_get_jpeg_quality();
+	return sikorix_ium_get_jpeg_quality();
 }
 
 /**
@@ -49,8 +49,8 @@ function sikora_iq_filter_jpeg_quality( $quality, $context ) {
  * @param string|null $mime_type Image MIME type.
  * @return int
  */
-function sikora_iq_filter_editor_quality( $quality, $mime_type = null ) {
+function sikorix_ium_filter_editor_quality( $quality, $mime_type = null ) {
 	unset( $mime_type );
 
-	return sikora_iq_get_editor_quality();
+	return sikorix_ium_get_editor_quality();
 }

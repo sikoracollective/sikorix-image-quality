@@ -1,8 +1,8 @@
 <?php
 /**
- * Admin settings page for Sikora Image Quality.
+ * Admin settings page for Sikorix Image Upload Manager.
  *
- * @package SikoraImageQuality
+ * @package SikorixImageUploadManager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param int    $default           Default value.
  * @return array<string, mixed>
  */
-function sikora_iq_get_setting_args( $sanitize_callback, $default ) {
+function sikorix_ium_get_setting_args( $sanitize_callback, $default ) {
 	return array(
 		'type'              => 'integer',
 		'sanitize_callback' => $sanitize_callback,
@@ -29,158 +29,158 @@ function sikora_iq_get_setting_args( $sanitize_callback, $default ) {
 /**
  * Register settings, sections, and fields.
  */
-function sikora_iq_register_admin_settings() {
+function sikorix_ium_register_admin_settings() {
 	register_setting(
-		'sikora_iq_settings_group',
-		SIKORA_IQ_OPTION_JPEG_QUALITY,
-		sikora_iq_get_setting_args( 'sikora_iq_sanitize_quality', SIKORA_IQ_DEFAULT_QUALITY )
+		'sikorix_ium_settings_group',
+		SIKORIX_IUM_OPTION_JPEG_QUALITY,
+		sikorix_ium_get_setting_args( 'sikorix_ium_sanitize_quality', SIKORIX_IUM_DEFAULT_QUALITY )
 	);
 
 	register_setting(
-		'sikora_iq_settings_group',
-		SIKORA_IQ_OPTION_JPEG_PRIORITY,
-		sikora_iq_get_setting_args( 'sikora_iq_sanitize_filter_priority', SIKORA_IQ_DEFAULT_FILTER_PRIORITY )
+		'sikorix_ium_settings_group',
+		SIKORIX_IUM_OPTION_JPEG_PRIORITY,
+		sikorix_ium_get_setting_args( 'sikorix_ium_sanitize_filter_priority', SIKORIX_IUM_DEFAULT_FILTER_PRIORITY )
 	);
 
 	register_setting(
-		'sikora_iq_settings_group',
-		SIKORA_IQ_OPTION_EDITOR_QUALITY,
-		sikora_iq_get_setting_args( 'sikora_iq_sanitize_quality', SIKORA_IQ_DEFAULT_QUALITY )
+		'sikorix_ium_settings_group',
+		SIKORIX_IUM_OPTION_EDITOR_QUALITY,
+		sikorix_ium_get_setting_args( 'sikorix_ium_sanitize_quality', SIKORIX_IUM_DEFAULT_QUALITY )
 	);
 
 	register_setting(
-		'sikora_iq_settings_group',
-		SIKORA_IQ_OPTION_EDITOR_PRIORITY,
-		sikora_iq_get_setting_args( 'sikora_iq_sanitize_filter_priority', SIKORA_IQ_DEFAULT_FILTER_PRIORITY )
+		'sikorix_ium_settings_group',
+		SIKORIX_IUM_OPTION_EDITOR_PRIORITY,
+		sikorix_ium_get_setting_args( 'sikorix_ium_sanitize_filter_priority', SIKORIX_IUM_DEFAULT_FILTER_PRIORITY )
 	);
 
 	add_settings_section(
-		'sikora_iq_jpeg_section',
-		__( 'JPEG Quality', 'sikora-image-quality' ),
-		'sikora_iq_render_jpeg_section_intro',
-		'sikora-image-quality'
+		'sikorix_ium_jpeg_section',
+		__( 'JPEG Quality', 'sikorix-image-upload-manager' ),
+		'sikorix_ium_render_jpeg_section_intro',
+		'sikorix-image-upload-manager'
 	);
 
 	add_settings_section(
-		'sikora_iq_editor_section',
-		__( 'WordPress Editor Quality', 'sikora-image-quality' ),
-		'sikora_iq_render_editor_section_intro',
-		'sikora-image-quality'
+		'sikorix_ium_editor_section',
+		__( 'WordPress Editor Quality', 'sikorix-image-upload-manager' ),
+		'sikorix_ium_render_editor_section_intro',
+		'sikorix-image-upload-manager'
 	);
 
 	add_settings_field(
-		'sikora_iq_jpeg_controls',
+		'sikorix_ium_jpeg_controls',
 		'',
-		'sikora_iq_render_jpeg_controls',
-		'sikora-image-quality',
-		'sikora_iq_jpeg_section'
+		'sikorix_ium_render_jpeg_controls',
+		'sikorix-image-upload-manager',
+		'sikorix_ium_jpeg_section'
 	);
 
 	add_settings_field(
-		'sikora_iq_editor_controls',
+		'sikorix_ium_editor_controls',
 		'',
-		'sikora_iq_render_editor_controls',
-		'sikora-image-quality',
-		'sikora_iq_editor_section'
+		'sikorix_ium_render_editor_controls',
+		'sikorix-image-upload-manager',
+		'sikorix_ium_editor_section'
 	);
 }
-add_action( 'admin_init', 'sikora_iq_register_admin_settings' );
+add_action( 'admin_init', 'sikorix_ium_register_admin_settings' );
 
 /**
  * Add the plugin settings page under Settings.
  */
-function sikora_iq_add_settings_page() {
+function sikorix_ium_add_settings_page() {
 	add_options_page(
-		__( 'Sikora Image Quality', 'sikora-image-quality' ),
-		__( 'Sikora Image Quality', 'sikora-image-quality' ),
+		__( 'Sikorix Image Upload Manager', 'sikorix-image-upload-manager' ),
+		__( 'Sikorix Image Upload Manager', 'sikorix-image-upload-manager' ),
 		'manage_options',
-		'sikora-image-quality',
-		'sikora_iq_render_settings_page'
+		'sikorix-image-upload-manager',
+		'sikorix_ium_render_settings_page'
 	);
 }
-add_action( 'admin_menu', 'sikora_iq_add_settings_page' );
+add_action( 'admin_menu', 'sikorix_ium_add_settings_page' );
 
 /**
  * Enqueue inline admin assets on the settings screen only.
  *
  * @param string $hook_suffix Current admin page hook suffix.
  */
-function sikora_iq_enqueue_admin_assets( $hook_suffix ) {
-	if ( 'settings_page_sikora-image-quality' !== $hook_suffix ) {
+function sikorix_ium_enqueue_admin_assets( $hook_suffix ) {
+	if ( 'settings_page_sikorix-image-upload-manager' !== $hook_suffix ) {
 		return;
 	}
 
-	wp_register_script( 'sikora-iq-admin-settings', false, array(), SIKORA_IQ_PLUGIN_VERSION, true );
-	wp_enqueue_script( 'sikora-iq-admin-settings' );
-	wp_add_inline_script( 'sikora-iq-admin-settings', sikora_iq_get_admin_settings_script() );
+	wp_register_script( 'sikorix-ium-admin-settings', false, array(), SIKORIX_IUM_PLUGIN_VERSION, true );
+	wp_enqueue_script( 'sikorix-ium-admin-settings' );
+	wp_add_inline_script( 'sikorix-ium-admin-settings', sikorix_ium_get_admin_settings_script() );
 
-	wp_register_style( 'sikora-iq-admin-settings', false, array(), SIKORA_IQ_PLUGIN_VERSION );
-	wp_enqueue_style( 'sikora-iq-admin-settings' );
-	wp_add_inline_style( 'sikora-iq-admin-settings', sikora_iq_get_admin_settings_styles() );
+	wp_register_style( 'sikorix-ium-admin-settings', false, array(), SIKORIX_IUM_PLUGIN_VERSION );
+	wp_enqueue_style( 'sikorix-ium-admin-settings' );
+	wp_add_inline_style( 'sikorix-ium-admin-settings', sikorix_ium_get_admin_settings_styles() );
 }
-add_action( 'admin_enqueue_scripts', 'sikora_iq_enqueue_admin_assets' );
+add_action( 'admin_enqueue_scripts', 'sikorix_ium_enqueue_admin_assets' );
 
 /**
  * Inline CSS for the settings page layout.
  *
  * @return string
  */
-function sikora_iq_get_admin_settings_styles() {
+function sikorix_ium_get_admin_settings_styles() {
 	return '
-		.sikora-iq-page-header {
+		.sikorix-ium-page-header {
 			display: flex;
 			align-items: baseline;
 			gap: 12px;
 			margin-bottom: 0;
 		}
-		.sikora-iq-page-header__title,
-		.wrap h1.sikora-iq-page-header__title {
+		.sikorix-ium-page-header__title,
+		.wrap h1.sikorix-ium-page-header__title {
 			font-weight: 700;
 			font-size: 23px;
 			line-height: 1.3;
 			margin: 0;
 			padding: 0;
 		}
-		.sikora-iq-page-header__version {
+		.sikorix-ium-page-header__version {
 			font-size: 14px;
 			line-height: 1.4;
 		}
-		body.settings_page_sikora-image-quality .wrap > .notice {
+		body.settings_page_sikorix-image-upload-manager .wrap > .notice {
 			margin: 8px 0 12px;
 		}
-		body.settings_page_sikora-image-quality .wrap > form {
+		body.settings_page_sikorix-image-upload-manager .wrap > form {
 			margin-top: 12px;
 		}
-		.sikora-iq-control-label {
+		.sikorix-ium-control-label {
 			display: block;
 			font-weight: 600;
 			margin: 16px 0 8px;
 		}
-		.sikora-iq-control-row {
+		.sikorix-ium-control-row {
 			display: flex;
 			align-items: center;
 			flex-wrap: wrap;
 			gap: 12px;
 			margin-bottom: 6px;
 		}
-		.sikora-iq-control-row input[type="range"] {
+		.sikorix-ium-control-row input[type="range"] {
 			width: min(320px, 100%);
 			max-width: 100%;
 		}
-		.sikora-iq-default-note {
+		.sikorix-ium-default-note {
 			margin: 0 0 8px;
 			color: #646970;
 		}
-		.sikora-iq-file-types {
+		.sikorix-ium-file-types {
 			color: #646970;
 			font-size: 13px;
 		}
-		.sikora-iq-developed-by {
+		.sikorix-ium-developed-by {
 			margin: 12px 12px 12px 0;
 			font-size: 14px;
 			line-height: 1.4;
 		}
-		#wpfooter .sikora-iq-developed-by {
+		#wpfooter .sikorix-ium-developed-by {
 			margin: 12px 12px 12px 0;
 			padding-left: 0;
 		}
@@ -192,7 +192,7 @@ function sikora_iq_get_admin_settings_styles() {
  *
  * @return string
  */
-function sikora_iq_get_admin_settings_script() {
+function sikorix_ium_get_admin_settings_script() {
 	return <<<'JS'
 ( function () {
 	'use strict';
@@ -257,7 +257,7 @@ function sikora_iq_get_admin_settings_script() {
 	}
 
 	function init() {
-		document.querySelectorAll( '.sikora-iq-control-row' ).forEach( bindSyncedRow );
+		document.querySelectorAll( '.sikorix-ium-control-row' ).forEach( bindSyncedRow );
 	}
 
 	if ( 'loading' === document.readyState ) {
@@ -272,11 +272,11 @@ JS;
 /**
  * Short intro under the JPEG section heading.
  */
-function sikora_iq_render_jpeg_section_intro() {
+function sikorix_ium_render_jpeg_section_intro() {
 	echo '<p class="description">';
 	esc_html_e(
 		'Controls the jpeg_quality filter used when WordPress generates JPEG images.',
-		'sikora-image-quality'
+		'sikorix-image-upload-manager'
 	);
 	echo '</p>';
 }
@@ -284,11 +284,11 @@ function sikora_iq_render_jpeg_section_intro() {
 /**
  * Short intro under the editor section heading.
  */
-function sikora_iq_render_editor_section_intro() {
+function sikorix_ium_render_editor_section_intro() {
 	echo '<p class="description">';
 	esc_html_e(
 		'Controls the wp_editor_set_quality filter used when the WordPress image editor saves images.',
-		'sikora-image-quality'
+		'sikorix-image-upload-manager'
 	);
 	echo '</p>';
 }
@@ -305,18 +305,18 @@ function sikora_iq_render_editor_section_intro() {
  * @param int    $max         Maximum allowed value.
  * @param string $trailing    Optional plain text shown after the number field.
  */
-function sikora_iq_render_slider_number_row( $label, $slider_id, $input_id, $option_name, $value, $min, $max, $trailing = '' ) {
+function sikorix_ium_render_slider_number_row( $label, $slider_id, $input_id, $option_name, $value, $min, $max, $trailing = '' ) {
 	?>
-	<label class="sikora-iq-control-label" for="<?php echo esc_attr( $input_id ); ?>">
+	<label class="sikorix-ium-control-label" for="<?php echo esc_attr( $input_id ); ?>">
 		<?php echo esc_html( $label ); ?>
 	</label>
-	<div class="sikora-iq-control-row">
+	<div class="sikorix-ium-control-row">
 		<label for="<?php echo esc_attr( $slider_id ); ?>" class="screen-reader-text">
 			<?php
 			echo esc_html(
 				sprintf(
 					/* translators: %s: control name, e.g. JPEG Quality. */
-					__( '%s slider', 'sikora-image-quality' ),
+					__( '%s slider', 'sikorix-image-upload-manager' ),
 					$label
 				)
 			);
@@ -341,7 +341,7 @@ function sikora_iq_render_slider_number_row( $label, $slider_id, $input_id, $opt
 			class="small-text"
 		/>
 		<?php if ( '' !== $trailing ) : ?>
-			<span class="sikora-iq-file-types"><?php echo esc_html( $trailing ); ?></span>
+			<span class="sikorix-ium-file-types"><?php echo esc_html( $trailing ); ?></span>
 		<?php endif; ?>
 	</div>
 	<?php
@@ -350,49 +350,49 @@ function sikora_iq_render_slider_number_row( $label, $slider_id, $input_id, $opt
 /**
  * Render JPEG quality and filter priority controls.
  */
-function sikora_iq_render_jpeg_controls() {
-	$quality  = sikora_iq_get_jpeg_quality();
-	$priority = sikora_iq_get_jpeg_filter_priority();
+function sikorix_ium_render_jpeg_controls() {
+	$quality  = sikorix_ium_get_jpeg_quality();
+	$priority = sikorix_ium_get_jpeg_filter_priority();
 
-	$file_types = __( 'Affects JPEG (.jpg, .jpeg) images', 'sikora-image-quality' );
+	$file_types = __( 'Affects JPEG (.jpg, .jpeg) images', 'sikorix-image-upload-manager' );
 
-	sikora_iq_render_slider_number_row(
-		__( 'JPEG Quality', 'sikora-image-quality' ),
-		'sikora-iq-jpeg-quality-slider',
-		'sikora-iq-jpeg-quality-input',
-		SIKORA_IQ_OPTION_JPEG_QUALITY,
+	sikorix_ium_render_slider_number_row(
+		__( 'JPEG Quality', 'sikorix-image-upload-manager' ),
+		'sikorix-ium-jpeg-quality-slider',
+		'sikorix-ium-jpeg-quality-input',
+		SIKORIX_IUM_OPTION_JPEG_QUALITY,
 		$quality,
-		SIKORA_IQ_MIN_QUALITY,
-		SIKORA_IQ_MAX_QUALITY,
+		SIKORIX_IUM_MIN_QUALITY,
+		SIKORIX_IUM_MAX_QUALITY,
 		$file_types
 	);
 	?>
-	<p class="sikora-iq-default-note">
+	<p class="sikorix-ium-default-note">
 		<?php
 		printf(
 			/* translators: %d: WordPress default JPEG quality. */
-			esc_html__( 'WordPress default image quality: %d', 'sikora-image-quality' ),
-			absint( SIKORA_IQ_WP_DEFAULT_QUALITY )
+			esc_html__( 'WordPress default image quality: %d', 'sikorix-image-upload-manager' ),
+			absint( SIKORIX_IUM_WP_DEFAULT_QUALITY )
 		);
 		?>
 	</p>
 	<?php
-	sikora_iq_render_slider_number_row(
-		__( 'JPEG Filter Priority', 'sikora-image-quality' ),
-		'sikora-iq-jpeg-priority-slider',
-		'sikora-iq-jpeg-priority-input',
-		SIKORA_IQ_OPTION_JPEG_PRIORITY,
+	sikorix_ium_render_slider_number_row(
+		__( 'JPEG Filter Priority', 'sikorix-image-upload-manager' ),
+		'sikorix-ium-jpeg-priority-slider',
+		'sikorix-ium-jpeg-priority-input',
+		SIKORIX_IUM_OPTION_JPEG_PRIORITY,
 		$priority,
-		SIKORA_IQ_MIN_PRIORITY,
-		SIKORA_IQ_MAX_PRIORITY
+		SIKORIX_IUM_MIN_PRIORITY,
+		SIKORIX_IUM_MAX_PRIORITY
 	);
 	?>
-	<p class="sikora-iq-default-note">
+	<p class="sikorix-ium-default-note">
 		<?php
 		printf(
 			/* translators: %d: WordPress default filter priority. */
-			esc_html__( 'WordPress default filter priority: %d', 'sikora-image-quality' ),
-			absint( SIKORA_IQ_WP_DEFAULT_FILTER_PRIORITY )
+			esc_html__( 'WordPress default filter priority: %d', 'sikorix-image-upload-manager' ),
+			absint( SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY )
 		);
 		?>
 	</p>
@@ -402,49 +402,49 @@ function sikora_iq_render_jpeg_controls() {
 /**
  * Render WordPress editor quality and filter priority controls.
  */
-function sikora_iq_render_editor_controls() {
-	$quality  = sikora_iq_get_editor_quality();
-	$priority = sikora_iq_get_editor_filter_priority();
+function sikorix_ium_render_editor_controls() {
+	$quality  = sikorix_ium_get_editor_quality();
+	$priority = sikorix_ium_get_editor_filter_priority();
 
-	$file_types = __( 'Affects JPEG, WebP, AVIF, and PNG images', 'sikora-image-quality' );
+	$file_types = __( 'Affects JPEG, WebP, AVIF, and PNG images', 'sikorix-image-upload-manager' );
 
-	sikora_iq_render_slider_number_row(
-		__( 'WordPress Editor Quality', 'sikora-image-quality' ),
-		'sikora-iq-editor-quality-slider',
-		'sikora-iq-editor-quality-input',
-		SIKORA_IQ_OPTION_EDITOR_QUALITY,
+	sikorix_ium_render_slider_number_row(
+		__( 'WordPress Editor Quality', 'sikorix-image-upload-manager' ),
+		'sikorix-ium-editor-quality-slider',
+		'sikorix-ium-editor-quality-input',
+		SIKORIX_IUM_OPTION_EDITOR_QUALITY,
 		$quality,
-		SIKORA_IQ_MIN_QUALITY,
-		SIKORA_IQ_MAX_QUALITY,
+		SIKORIX_IUM_MIN_QUALITY,
+		SIKORIX_IUM_MAX_QUALITY,
 		$file_types
 	);
 	?>
-	<p class="sikora-iq-default-note">
+	<p class="sikorix-ium-default-note">
 		<?php
 		printf(
 			/* translators: %d: WordPress default editor quality. */
-			esc_html__( 'WordPress default image quality: %d', 'sikora-image-quality' ),
-			absint( SIKORA_IQ_WP_DEFAULT_QUALITY )
+			esc_html__( 'WordPress default image quality: %d', 'sikorix-image-upload-manager' ),
+			absint( SIKORIX_IUM_WP_DEFAULT_QUALITY )
 		);
 		?>
 	</p>
 	<?php
-	sikora_iq_render_slider_number_row(
-		__( 'WordPress Editor Filter Priority', 'sikora-image-quality' ),
-		'sikora-iq-editor-priority-slider',
-		'sikora-iq-editor-priority-input',
-		SIKORA_IQ_OPTION_EDITOR_PRIORITY,
+	sikorix_ium_render_slider_number_row(
+		__( 'WordPress Editor Filter Priority', 'sikorix-image-upload-manager' ),
+		'sikorix-ium-editor-priority-slider',
+		'sikorix-ium-editor-priority-input',
+		SIKORIX_IUM_OPTION_EDITOR_PRIORITY,
 		$priority,
-		SIKORA_IQ_MIN_PRIORITY,
-		SIKORA_IQ_MAX_PRIORITY
+		SIKORIX_IUM_MIN_PRIORITY,
+		SIKORIX_IUM_MAX_PRIORITY
 	);
 	?>
-	<p class="sikora-iq-default-note">
+	<p class="sikorix-ium-default-note">
 		<?php
 		printf(
 			/* translators: %d: WordPress default filter priority. */
-			esc_html__( 'WordPress default filter priority: %d', 'sikora-image-quality' ),
-			absint( SIKORA_IQ_WP_DEFAULT_FILTER_PRIORITY )
+			esc_html__( 'WordPress default filter priority: %d', 'sikorix-image-upload-manager' ),
+			absint( SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY )
 		);
 		?>
 	</p>
@@ -456,57 +456,57 @@ function sikora_iq_render_editor_controls() {
  *
  * @return bool
  */
-function sikora_iq_is_settings_screen() {
+function sikorix_ium_is_settings_screen() {
 	if ( ! function_exists( 'get_current_screen' ) ) {
 		return false;
 	}
 
 	$screen = get_current_screen();
 
-	return ( $screen && 'settings_page_sikora-image-quality' === $screen->id );
+	return ( $screen && 'settings_page_sikorix-image-upload-manager' === $screen->id );
 }
 
 /**
  * Print the developer credit on its own line above the WordPress footer text.
  */
-function sikora_iq_render_admin_footer_credit() {
-	if ( ! sikora_iq_is_settings_screen() ) {
+function sikorix_ium_render_admin_footer_credit() {
+	if ( ! sikorix_ium_is_settings_screen() ) {
 		return;
 	}
 	?>
-	<div class="sikora-iq-developed-by">
-		<?php esc_html_e( 'Developed by', 'sikora-image-quality' ); ?>
+	<div class="sikorix-ium-developed-by">
+		<?php esc_html_e( 'Developed by', 'sikorix-image-upload-manager' ); ?>
 		<a
-			href="<?php echo esc_url( 'https://sikoracollective.com/' ); ?>"
+			href="<?php echo esc_url( 'https://sikorix.com/' ); ?>"
 			target="_blank"
 			rel="noopener noreferrer"
 		>
-			<?php esc_html_e( 'Sikora Collective', 'sikora-image-quality' ); ?>
+			<?php esc_html_e( 'Sikorix', 'sikorix-image-upload-manager' ); ?>
 		</a>
 	</div>
 	<?php
 }
-add_action( 'in_admin_footer', 'sikora_iq_render_admin_footer_credit' );
+add_action( 'in_admin_footer', 'sikorix_ium_render_admin_footer_credit' );
 
 /**
  * Render the full settings page.
  */
-function sikora_iq_render_settings_page() {
+function sikorix_ium_render_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 	?>
 	<div class="wrap">
-		<div class="sikora-iq-page-header">
-			<h1 class="sikora-iq-page-header__title"><?php esc_html_e( 'Sikora Image Quality', 'sikora-image-quality' ); ?></h1>
-			<span class="sikora-iq-page-header__version"><?php echo esc_html( SIKORA_IQ_PLUGIN_VERSION ); ?></span>
+		<div class="sikorix-ium-page-header">
+			<h1 class="sikorix-ium-page-header__title"><?php esc_html_e( 'Sikorix Image Upload Manager', 'sikorix-image-upload-manager' ); ?></h1>
+			<span class="sikorix-ium-page-header__version"><?php echo esc_html( SIKORIX_IUM_PLUGIN_VERSION ); ?></span>
 		</div>
 		<hr class="wp-header-end" />
 
 		<form action="options.php" method="post">
 			<?php
-			settings_fields( 'sikora_iq_settings_group' );
-			do_settings_sections( 'sikora-image-quality' );
+			settings_fields( 'sikorix_ium_settings_group' );
+			do_settings_sections( 'sikorix-image-upload-manager' );
 			submit_button();
 			?>
 		</form>
