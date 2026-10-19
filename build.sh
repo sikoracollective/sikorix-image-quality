@@ -15,12 +15,19 @@ cp "${ROOT}/sikorix-image-upload-manager.php" "${BUILD_DIR}/"
 cp "${ROOT}/uninstall.php" "${BUILD_DIR}/"
 cp "${ROOT}/includes/"*.php "${BUILD_DIR}/includes/"
 
+FILE_COUNT="$(find "${BUILD_DIR}" -type f | wc -l | tr -d '[:space:]')"
+echo "Including ${FILE_COUNT} files:"
+(
+	cd "${BUILD_DIR}"
+	find . -type f | sed 's|^\./||' | sort | sed 's|^|  |'
+)
+
 rm -f "${ZIP_PATH}"
 (
 	cd "${ROOT}/build"
-	zip -r "${ZIP_PATH}" "${SLUG}"
+	zip -qr "${ZIP_PATH}" "${SLUG}"
 )
 
 rm -rf "${ROOT}/build"
 
-echo "Created ${ZIP_PATH}"
+echo "Installable WordPress plugin: ${SLUG}.zip"
