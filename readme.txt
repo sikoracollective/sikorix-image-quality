@@ -4,7 +4,7 @@ Tags: images, jpeg, quality, media, upload, webp, avif
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,9 @@ No. Only new or re-saved generated images use the new settings.
 
 == Changelog ==
 
+= 3.1.1 =
+* Settings copy and layout: file-type notes in section descriptions; WordPress defaults beside quality and priority inputs.
+
 = 3.1.0 =
 * Renamed plugin to Sikorix Image Upload Manager (slug: sikorix-image-upload-manager).
 * Updated author credit to Sikorix.
@@ -76,6 +79,9 @@ No. Only new or re-saved generated images use the new settings.
 * Removes plugin settings from the database on uninstall.
 
 == Upgrade Notice ==
+
+= 3.1.1 =
+Settings screen text and layout refinements.
 
 = 3.1.0 =
 Renamed to Sikorix Image Upload Manager. Install as a new plugin slug; previous settings are not migrated.

@@ -275,7 +275,7 @@ JS;
 function sikorix_ium_render_jpeg_section_intro() {
 	echo '<p class="description">';
 	esc_html_e(
-		'Controls the jpeg_quality filter used when WordPress generates JPEG images.',
+		'Controls the jpeg_quality filter used when WordPress generates JPEG images. This affects JPEG images.',
 		'sikorix-image-upload-manager'
 	);
 	echo '</p>';
@@ -287,7 +287,7 @@ function sikorix_ium_render_jpeg_section_intro() {
 function sikorix_ium_render_editor_section_intro() {
 	echo '<p class="description">';
 	esc_html_e(
-		'Controls the wp_editor_set_quality filter used when the WordPress image editor saves images.',
+		'Controls the wp_editor_set_quality filter used when the WordPress image editor saves images. This affects JPEG, WebP, AVIF, and PNG images.',
 		'sikorix-image-upload-manager'
 	);
 	echo '</p>';
@@ -354,7 +354,11 @@ function sikorix_ium_render_jpeg_controls() {
 	$quality  = sikorix_ium_get_jpeg_quality();
 	$priority = sikorix_ium_get_jpeg_filter_priority();
 
-	$file_types = __( 'Affects JPEG (.jpg, .jpeg) images', 'sikorix-image-upload-manager' );
+	$default_quality = sprintf(
+		/* translators: %d: WordPress default JPEG quality. */
+		__( 'WordPress default: %d', 'sikorix-image-upload-manager' ),
+		absint( SIKORIX_IUM_WP_DEFAULT_QUALITY )
+	);
 
 	sikorix_ium_render_slider_number_row(
 		__( 'JPEG Quality', 'sikorix-image-upload-manager' ),
@@ -364,19 +368,15 @@ function sikorix_ium_render_jpeg_controls() {
 		$quality,
 		SIKORIX_IUM_MIN_QUALITY,
 		SIKORIX_IUM_MAX_QUALITY,
-		$file_types
+		$default_quality
 	);
-	?>
-	<p class="sikorix-ium-default-note">
-		<?php
-		printf(
-			/* translators: %d: WordPress default JPEG quality. */
-			esc_html__( 'WordPress default image quality: %d', 'sikorix-image-upload-manager' ),
-			absint( SIKORIX_IUM_WP_DEFAULT_QUALITY )
-		);
-		?>
-	</p>
-	<?php
+
+	$default_priority = sprintf(
+		/* translators: %d: WordPress default filter priority. */
+		__( 'WordPress default: %d', 'sikorix-image-upload-manager' ),
+		absint( SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY )
+	);
+
 	sikorix_ium_render_slider_number_row(
 		__( 'JPEG Filter Priority', 'sikorix-image-upload-manager' ),
 		'sikorix-ium-jpeg-priority-slider',
@@ -384,19 +384,9 @@ function sikorix_ium_render_jpeg_controls() {
 		SIKORIX_IUM_OPTION_JPEG_PRIORITY,
 		$priority,
 		SIKORIX_IUM_MIN_PRIORITY,
-		SIKORIX_IUM_MAX_PRIORITY
+		SIKORIX_IUM_MAX_PRIORITY,
+		$default_priority
 	);
-	?>
-	<p class="sikorix-ium-default-note">
-		<?php
-		printf(
-			/* translators: %d: WordPress default filter priority. */
-			esc_html__( 'WordPress default filter priority: %d', 'sikorix-image-upload-manager' ),
-			absint( SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY )
-		);
-		?>
-	</p>
-	<?php
 }
 
 /**
@@ -406,7 +396,11 @@ function sikorix_ium_render_editor_controls() {
 	$quality  = sikorix_ium_get_editor_quality();
 	$priority = sikorix_ium_get_editor_filter_priority();
 
-	$file_types = __( 'Affects JPEG, WebP, AVIF, and PNG images', 'sikorix-image-upload-manager' );
+	$default_quality = sprintf(
+		/* translators: %d: WordPress default editor quality. */
+		__( 'WordPress default: %d', 'sikorix-image-upload-manager' ),
+		absint( SIKORIX_IUM_WP_DEFAULT_QUALITY )
+	);
 
 	sikorix_ium_render_slider_number_row(
 		__( 'WordPress Editor Quality', 'sikorix-image-upload-manager' ),
@@ -416,19 +410,15 @@ function sikorix_ium_render_editor_controls() {
 		$quality,
 		SIKORIX_IUM_MIN_QUALITY,
 		SIKORIX_IUM_MAX_QUALITY,
-		$file_types
+		$default_quality
 	);
-	?>
-	<p class="sikorix-ium-default-note">
-		<?php
-		printf(
-			/* translators: %d: WordPress default editor quality. */
-			esc_html__( 'WordPress default image quality: %d', 'sikorix-image-upload-manager' ),
-			absint( SIKORIX_IUM_WP_DEFAULT_QUALITY )
-		);
-		?>
-	</p>
-	<?php
+
+	$default_priority = sprintf(
+		/* translators: %d: WordPress default filter priority. */
+		__( 'WordPress default: %d', 'sikorix-image-upload-manager' ),
+		absint( SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY )
+	);
+
 	sikorix_ium_render_slider_number_row(
 		__( 'WordPress Editor Filter Priority', 'sikorix-image-upload-manager' ),
 		'sikorix-ium-editor-priority-slider',
@@ -436,19 +426,9 @@ function sikorix_ium_render_editor_controls() {
 		SIKORIX_IUM_OPTION_EDITOR_PRIORITY,
 		$priority,
 		SIKORIX_IUM_MIN_PRIORITY,
-		SIKORIX_IUM_MAX_PRIORITY
+		SIKORIX_IUM_MAX_PRIORITY,
+		$default_priority
 	);
-	?>
-	<p class="sikorix-ium-default-note">
-		<?php
-		printf(
-			/* translators: %d: WordPress default filter priority. */
-			esc_html__( 'WordPress default filter priority: %d', 'sikorix-image-upload-manager' ),
-			absint( SIKORIX_IUM_WP_DEFAULT_FILTER_PRIORITY )
-		);
-		?>
-	</p>
-	<?php
 }
 
 /**
